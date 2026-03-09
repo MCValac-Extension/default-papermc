@@ -1,6 +1,6 @@
 package io.github.mcvalac.defaults.papermc.command.util;
 
-import io.github.mcvalac.mcbackpack.api.command.IBackpackCommandHandle;
+import io.github.mcvalac.defaults.papermc.command.IBackpackCommandHandle;
 import io.github.mcvalac.mcbackpack.common.MCBackpackProvider;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

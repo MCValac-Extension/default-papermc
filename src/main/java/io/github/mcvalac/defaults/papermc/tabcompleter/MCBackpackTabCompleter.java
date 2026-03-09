@@ -1,7 +1,7 @@
 package io.github.mcvalac.defaults.papermc.tabcompleter;
 
-import io.github.mcvalac.mcbackpack.api.command.IBackpackCommandHandle;
 import io.github.mcvalac.defaults.papermc.command.MCBackpackCommandManager;
+import io.github.mcvalac.defaults.papermc.command.IBackpackCommandHandle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

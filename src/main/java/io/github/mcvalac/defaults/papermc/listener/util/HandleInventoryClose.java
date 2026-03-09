@@ -60,7 +60,6 @@ public class HandleInventoryClose implements Listener {
                 // Save Async
                 provider.save(uuid, base64Content).thenRun(() -> {
                     cooldownManager.markClosed(event.getPlayer().getUniqueId());
-                    provider.markClosed(uuid);
                 });
 
             } catch (IOException e) {

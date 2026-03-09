@@ -1,6 +1,5 @@
 package io.github.mcvalac.defaults.papermc.command;
 
-import io.github.mcvalac.mcbackpack.api.command.IBackpackCommandHandle;
 import io.github.mcvalac.mcbackpack.common.MCBackpackProvider;
 import io.github.mcvalac.defaults.papermc.command.util.CHandleChangeTexture;
 import io.github.mcvalac.defaults.papermc.command.util.CHandleCreateBackpack;

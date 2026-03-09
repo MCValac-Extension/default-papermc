@@ -2,7 +2,7 @@ package io.github.mcvalac.defaults.papermc.command.util;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
-import io.github.mcvalac.mcbackpack.api.command.IBackpackCommandHandle;
+import io.github.mcvalac.defaults.papermc.command.IBackpackCommandHandle;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;

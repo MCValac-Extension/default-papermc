@@ -1,7 +1,7 @@
 package io.github.mcvalac.defaults.papermc.command.util;
 
-import io.github.mcvalac.mcbackpack.api.command.IBackpackCommandHandle;
 import io.github.mcvalac.defaults.papermc.command.MCBackpackCommandManager;
+import io.github.mcvalac.defaults.papermc.command.IBackpackCommandHandle;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
