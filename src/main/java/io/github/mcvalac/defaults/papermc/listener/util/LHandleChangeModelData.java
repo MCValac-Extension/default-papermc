@@ -52,7 +52,7 @@ public class LHandleChangeModelData implements Listener {
 
         String modelData = cursor.getItemMeta().getPersistentDataContainer().get(applicatorKey, PersistentDataType.STRING);
         if (modelData == null || modelData.isBlank()) {
-            player.sendMessage(Component.translatable("mcengine.mcbackpack.msg.error.model_data.invalid", "Invalid model data.").color(NamedTextColor.RED));
+            player.sendMessage(Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.model_data.invalid", "Invalid model data.").color(NamedTextColor.RED));
             return;
         }
 
@@ -71,7 +71,7 @@ public class LHandleChangeModelData implements Listener {
             event.getView().setCursor(null);
         }
 
-        player.sendMessage(Component.translatable("mcengine.mcbackpack.msg.model_data.applied", "Model data applied.").color(NamedTextColor.GREEN));
+        player.sendMessage(Component.translatable("mcvalac.mcbackpack.extension.default.msg.model_data.applied", "Model data applied.").color(NamedTextColor.GREEN));
         player.updateInventory();
     }
 }

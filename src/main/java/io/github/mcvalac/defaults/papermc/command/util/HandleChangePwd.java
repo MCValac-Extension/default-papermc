@@ -44,7 +44,7 @@ public class HandleChangePwd implements IBackpackCommandHandle {
     @Override
     public void invoke(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
             sender.sendMessage(msg);
             return;
         }
@@ -52,7 +52,7 @@ public class HandleChangePwd implements IBackpackCommandHandle {
         Player player = (Player) sender;
 
         if (args.length < 2) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.usage.changepwd", "/bp changepwd <old_password> <new_password>").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.usage.changepwd", "/bp changepwd <old_password> <new_password>").color(NamedTextColor.RED);
             player.sendMessage(msg);
             return;
         }
@@ -61,7 +61,7 @@ public class HandleChangePwd implements IBackpackCommandHandle {
         ItemMeta meta = item.getItemMeta();
 
         if (meta == null || !meta.getPersistentDataContainer().has(uuidKey, PersistentDataType.STRING)) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.error.not_holding", "You must hold a backpack in your main hand.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.not_holding", "You must hold a backpack in your main hand.").color(NamedTextColor.RED);
             player.sendMessage(msg);
             return;
         }
@@ -72,7 +72,7 @@ public class HandleChangePwd implements IBackpackCommandHandle {
 
         provider.open(uuid).thenAccept(data -> {
             if (data == null) {
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.error.not_found", "Backpack not found.").color(NamedTextColor.RED);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.not_found", "Backpack not found.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
                 return;
             }
@@ -86,11 +86,11 @@ public class HandleChangePwd implements IBackpackCommandHandle {
             provider.checkPwd(uuid, oldPwdRaw).thenAccept(isValid -> {
                 if (isValid) {
                     provider.changePwd(uuid, newPwdRaw).thenRun(() -> {
-                        Component msg = Component.translatable("mcengine.mcbackpack.msg.password.changed", "Backpack password changed.").color(NamedTextColor.GREEN);
+                        Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.changed", "Backpack password changed.").color(NamedTextColor.GREEN);
                         player.sendMessage(msg);
                     });
                 } else {
-                    Component msg = Component.translatable("mcengine.mcbackpack.msg.password.old.incorrect", "Old password is incorrect.").color(NamedTextColor.RED);
+                    Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.old.incorrect", "Old password is incorrect.").color(NamedTextColor.RED);
                     player.sendMessage(msg);
                 }
             });
@@ -104,7 +104,7 @@ public class HandleChangePwd implements IBackpackCommandHandle {
      */
     @Override
     public Component getHelp() {
-        return Component.translatable("mcengine.mcbackpack.msg.help.changepwd", "<old> <new> - Change password for held backpack");
+        return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.changepwd", "<old> <new> - Change password for held backpack");
     }
 
     /**

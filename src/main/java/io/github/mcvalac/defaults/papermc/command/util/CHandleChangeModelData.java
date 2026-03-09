@@ -26,14 +26,14 @@ public class CHandleChangeModelData implements IBackpackCommandHandle {
     @Override
     public void invoke(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Component.translatable("mcengine.mcbackpack.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED));
+            sender.sendMessage(Component.translatable("mcvalac.mcbackpack.extension.default.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED));
             return;
         }
 
         Player player = (Player) sender;
 
         if (args.length < 1) {
-            player.sendMessage(Component.translatable("mcengine.mcbackpack.msg.usage.get.model.data", "/bp get model data <model_data>").color(NamedTextColor.RED));
+            player.sendMessage(Component.translatable("mcvalac.mcbackpack.extension.default.msg.usage.get.model.data", "/bp get model data <model_data>").color(NamedTextColor.RED));
             return;
         }
 
@@ -43,7 +43,7 @@ public class CHandleChangeModelData implements IBackpackCommandHandle {
         ItemMeta meta = applicator.getItemMeta();
 
         if (meta != null) {
-            meta.displayName(Component.translatable("mcengine.mcbackpack.item.model_data_applicator.name", "Backpack Model Data Applicator").color(NamedTextColor.LIGHT_PURPLE));
+            meta.displayName(Component.translatable("mcvalac.mcbackpack.extension.default.item.model_data_applicator.name", "Backpack Model Data Applicator").color(NamedTextColor.LIGHT_PURPLE));
             meta.getPersistentDataContainer().set(applicatorKey, PersistentDataType.STRING, modelData);
             applicator.setItemMeta(meta);
         }
@@ -53,12 +53,12 @@ public class CHandleChangeModelData implements IBackpackCommandHandle {
             player.getWorld().dropItemNaturally(player.getLocation(), applicator);
         }
 
-        player.sendMessage(Component.translatable("mcengine.mcbackpack.msg.model_data.received", "Model data applicator received.").color(NamedTextColor.GREEN));
+        player.sendMessage(Component.translatable("mcvalac.mcbackpack.extension.default.msg.model_data.received", "Model data applicator received.").color(NamedTextColor.GREEN));
     }
 
     @Override
     public Component getHelp() {
-        return Component.translatable("mcengine.mcbackpack.msg.help.get.model.data", "model data <model_data> - Get a model data applicator");
+        return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.get.model.data", "model data <model_data> - Get a model data applicator");
     }
 
     @Override

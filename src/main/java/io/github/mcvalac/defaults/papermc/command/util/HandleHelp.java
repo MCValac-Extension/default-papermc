@@ -37,7 +37,7 @@ public class HandleHelp implements IBackpackCommandHandle {
      */
     @Override
     public void invoke(CommandSender sender, String[] args) {
-        Component header = Component.translatable("mcengine.mcbackpack.msg.help.header", "MCBackpack Commands")
+        Component header = Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.header", "MCBackpack Commands")
                 .color(NamedTextColor.GOLD)
                 .decorate(TextDecoration.BOLD);
         sender.sendMessage(header);
@@ -52,7 +52,7 @@ public class HandleHelp implements IBackpackCommandHandle {
                 String fullCommand = "/bp " + name;
 
                 // Translatable hover
-                Component hoverText = Component.translatable("mcengine.mcbackpack.msg.help.hover", "Click to suggest command").color(NamedTextColor.GREEN);
+                Component hoverText = Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.hover", "Click to suggest command").color(NamedTextColor.GREEN);
 
                 Component cmdText = Component.text(fullCommand + " ")
                         .color(NamedTextColor.YELLOW)
@@ -75,7 +75,7 @@ public class HandleHelp implements IBackpackCommandHandle {
      */
     @Override
     public Component getHelp() {
-        return Component.translatable("mcengine.mcbackpack.msg.help.help", "- View this help menu");
+        return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.help", "- View this help menu");
     }
 
     /**

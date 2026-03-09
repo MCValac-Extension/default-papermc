@@ -58,7 +58,7 @@ public class MCBackpackCommandManager {
         IBackpackCommandHandle handle = subcommands.get(sub);
 
         if (handle == null) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.error.unknown_command", "Unknown subcommand.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.unknown_command", "Unknown subcommand.").color(NamedTextColor.RED);
             sender.sendMessage(msg);
             subcommands.get("help").invoke(sender, args);
             return true;
@@ -66,7 +66,7 @@ public class MCBackpackCommandManager {
 
         // Permission check
         if (handle.getPermission() != null && !sender.hasPermission(handle.getPermission())) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.error.no_permission", "You do not have permission to use this command.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.no_permission", "You do not have permission to use this command.").color(NamedTextColor.RED);
             sender.sendMessage(msg);
             return true;
         }

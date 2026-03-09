@@ -101,7 +101,7 @@ public class LHandleChangeTexture implements Listener {
 
         // 3. Update Database (Async)
         provider.setTexture(uuid, newTexture).thenRun(() -> {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.texture.applied", "Backpack texture applied.").color(NamedTextColor.GREEN);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.texture.applied", "Backpack texture applied.").color(NamedTextColor.GREEN);
             player.sendMessage(msg);
         });
 

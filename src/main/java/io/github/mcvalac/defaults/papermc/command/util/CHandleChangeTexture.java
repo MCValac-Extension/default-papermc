@@ -47,7 +47,7 @@ public class CHandleChangeTexture implements IBackpackCommandHandle {
     @Override
     public void invoke(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
             sender.sendMessage(msg);
             return;
         }
@@ -55,7 +55,7 @@ public class CHandleChangeTexture implements IBackpackCommandHandle {
         Player player = (Player) sender;
 
         if (args.length < 1) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.usage.texture", "/bp texture <base64_texture>").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.usage.texture", "/bp texture <base64_texture>").color(NamedTextColor.RED);
             player.sendMessage(msg);
             return;
         }
@@ -76,13 +76,13 @@ public class CHandleChangeTexture implements IBackpackCommandHandle {
                 profile.setProperty(new ProfileProperty("textures", texture));
                 meta.setPlayerProfile(profile);
             } catch (IllegalArgumentException e) {
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.error.invalid_texture", "Invalid texture value.").color(NamedTextColor.RED);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.invalid_texture", "Invalid texture value.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
                 return;
             }
 
             // 2. Set Name
-            meta.displayName(Component.translatable("mcengine.mcbackpack.item.applicator.name", "Backpack Texture Applicator").color(NamedTextColor.LIGHT_PURPLE));
+            meta.displayName(Component.translatable("mcvalac.mcbackpack.extension.default.item.applicator.name", "Backpack Texture Applicator").color(NamedTextColor.LIGHT_PURPLE));
 
             // 3. Store Data for Listener
             meta.getPersistentDataContainer().set(applicatorKey, PersistentDataType.STRING, texture);
@@ -96,7 +96,7 @@ public class CHandleChangeTexture implements IBackpackCommandHandle {
             player.getWorld().dropItemNaturally(player.getLocation(), applicator);
         }
 
-        Component msg = Component.translatable("mcengine.mcbackpack.msg.texture.received", "Texture applicator received.").color(NamedTextColor.GREEN);
+        Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.texture.received", "Texture applicator received.").color(NamedTextColor.GREEN);
         player.sendMessage(msg);
     }
 
@@ -106,7 +106,7 @@ public class CHandleChangeTexture implements IBackpackCommandHandle {
      */
     @Override
     public Component getHelp() {
-        return Component.translatable("mcengine.mcbackpack.msg.help.texture", "<base64_texture> - Get a backpack texture applicator");
+        return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.texture", "<base64_texture> - Get a backpack texture applicator");
     }
 
     /**

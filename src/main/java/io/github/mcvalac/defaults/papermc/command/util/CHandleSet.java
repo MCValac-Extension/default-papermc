@@ -25,12 +25,12 @@ public class CHandleSet implements IBackpackCommandHandle {
             return;
         }
 
-        sender.sendMessage(Component.translatable("mcengine.mcbackpack.msg.usage.get.model.data", "/bp get model data <model_data>").color(NamedTextColor.RED));
+        sender.sendMessage(Component.translatable("mcvalac.mcbackpack.extension.default.msg.usage.get.model.data", "/bp get model data <model_data>").color(NamedTextColor.RED));
     }
 
     @Override
     public Component getHelp() {
-        return Component.translatable("mcengine.mcbackpack.msg.help.get", "model data <model_data> - Get set subcommands");
+        return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.get", "model data <model_data> - Get set subcommands");
     }
 
     @Override

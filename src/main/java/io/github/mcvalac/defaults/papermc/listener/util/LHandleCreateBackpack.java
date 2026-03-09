@@ -101,7 +101,7 @@ public class LHandleCreateBackpack implements Listener {
 
         // Check if inventory has space before creating (only needed if stacking)
         if (item.getAmount() > 1 && player.getInventory().firstEmpty() == -1) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.error.inventory.full", "Your inventory is full.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.inventory.full", "Your inventory is full.").color(NamedTextColor.RED);
             player.sendMessage(msg);
             return;
         }
@@ -124,7 +124,7 @@ public class LHandleCreateBackpack implements Listener {
                 // Verify the player is still holding a valid creation item
                 if (handItem.getType() != Material.PLAYER_HEAD || handItem.getItemMeta() == null ||
                     !handItem.getItemMeta().getPersistentDataContainer().has(sizeKey, PersistentDataType.INTEGER)) {
-                    Component msg = Component.translatable("mcengine.mcbackpack.msg.error.item.moved", "Backpack item moved before initialization completed.").color(NamedTextColor.RED);
+                    Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.item.moved", "Backpack item moved before initialization completed.").color(NamedTextColor.RED);
                     player.sendMessage(msg);
                     return;
                 }
@@ -148,7 +148,7 @@ public class LHandleCreateBackpack implements Listener {
                 }
 
                 // Rename to "Backpack {size}" using Adventure API
-                newMeta.displayName(Component.translatable("mcengine.mcbackpack.item.name", "Backpack").color(NamedTextColor.GOLD).append(Component.text(" " + size)));
+                newMeta.displayName(Component.translatable("mcvalac.mcbackpack.extension.default.item.name", "Backpack").color(NamedTextColor.GOLD).append(Component.text(" " + size)));
                 newBackpack.setItemMeta(newMeta);
 
                 // Handle the original stack
@@ -163,7 +163,7 @@ public class LHandleCreateBackpack implements Listener {
                     player.getInventory().setItemInMainHand(newBackpack);
                 }
 
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.initialized", "Backpack initialized successfully.").color(NamedTextColor.GREEN);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.initialized", "Backpack initialized successfully.").color(NamedTextColor.GREEN);
                 player.sendMessage(msg);
             });
         });

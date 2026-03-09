@@ -91,7 +91,7 @@ public class HandleInventoryOpen implements Listener {
         if (cooldownManager.isOnCooldown(player.getUniqueId())) {
             long remainingMs = cooldownManager.getRemainingMillis(player.getUniqueId());
             long remainingSeconds = Math.max(1, (long) Math.ceil(remainingMs / 1000.0));
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.cooldown", "Please wait before opening your backpack again")
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.cooldown", "Please wait before opening your backpack again")
                     .color(NamedTextColor.YELLOW)
                     .append(Component.text(" (" + remainingSeconds + "s)"));
             player.sendMessage(msg);
@@ -100,28 +100,28 @@ public class HandleInventoryOpen implements Listener {
 
         // Check if already waiting to prevent double spam
         if (passwordManager.isPending(player.getUniqueId())) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.password.enter", "Please enter your backpack password in chat").color(NamedTextColor.YELLOW);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.enter", "Please enter your backpack password in chat").color(NamedTextColor.YELLOW);
             player.sendMessage(msg);
             return;
         }
 
-        Component loading = Component.translatable("mcengine.mcbackpack.msg.item.open", "Opening backpack...").color(NamedTextColor.GRAY);
+        Component loading = Component.translatable("mcvalac.mcbackpack.extension.default.msg.item.open", "Opening backpack...").color(NamedTextColor.GRAY);
         player.sendMessage(loading);
 
         provider.open(backpackUuid).thenAccept(data -> {
             Bukkit.getScheduler().runTask(Bukkit.getPluginManager().getPlugin("MCBackpack"), () -> {
 
                 if (data == null) {
-                    Component msg = Component.translatable("mcengine.mcbackpack.msg.error.load", "Could not load backpack data").color(NamedTextColor.RED);
+                    Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.load", "Could not load backpack data").color(NamedTextColor.RED);
                     player.sendMessage(msg);
                     return;
                 }
 
                 if (data.isLocked() && !player.isOp()) {
-                    Component locked = Component.translatable("mcengine.mcbackpack.msg.locked", "This backpack is locked").color(NamedTextColor.RED);
+                    Component locked = Component.translatable("mcvalac.mcbackpack.extension.default.msg.locked", "This backpack is locked").color(NamedTextColor.RED);
                     player.sendMessage(locked);
 
-                    Component instr = Component.translatable("mcengine.mcbackpack.msg.password.instruction", "Type your password in chat, or type 'cancel' to abort").color(NamedTextColor.YELLOW);
+                    Component instr = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.instruction", "Type your password in chat, or type 'cancel' to abort").color(NamedTextColor.YELLOW);
                     player.sendMessage(instr);
 
                     passwordManager.addPending(player.getUniqueId(), data);
@@ -129,7 +129,7 @@ public class HandleInventoryOpen implements Listener {
                 }
 
                 try {
-                    Component title = Component.translatable("mcengine.mcbackpack.gui.title", "Backpack");
+                    Component title = Component.translatable("mcvalac.mcbackpack.extension.default.gui.title", "Backpack");
 
                     Inventory backpackInv;
                     if (data.getContent() == null || data.getContent().isEmpty()) {
@@ -142,7 +142,7 @@ public class HandleInventoryOpen implements Listener {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Component msg = Component.translatable("mcengine.mcbackpack.msg.error.deserialize", "Failed to read backpack contents").color(NamedTextColor.RED);
+                    Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.deserialize", "Failed to read backpack contents").color(NamedTextColor.RED);
                     player.sendMessage(msg);
                 }
             });

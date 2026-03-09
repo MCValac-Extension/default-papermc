@@ -44,7 +44,7 @@ public class HandleSetPwd implements IBackpackCommandHandle {
     @Override
     public void invoke(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
             sender.sendMessage(msg);
             return;
         }
@@ -52,7 +52,7 @@ public class HandleSetPwd implements IBackpackCommandHandle {
         Player player = (Player) sender;
 
         if (args.length < 1) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.usage.setpwd", "/bp setpwd <password>").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.usage.setpwd", "/bp setpwd <password>").color(NamedTextColor.RED);
             player.sendMessage(msg);
             return;
         }
@@ -61,7 +61,7 @@ public class HandleSetPwd implements IBackpackCommandHandle {
         ItemMeta meta = item.getItemMeta();
 
         if (meta == null || !meta.getPersistentDataContainer().has(uuidKey, PersistentDataType.STRING)) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.error.not_holding", "You must hold a backpack in your main hand.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.not_holding", "You must hold a backpack in your main hand.").color(NamedTextColor.RED);
             player.sendMessage(msg);
             return;
         }
@@ -72,24 +72,24 @@ public class HandleSetPwd implements IBackpackCommandHandle {
         // First, load the backpack data to check if a password exists
         provider.open(uuid).thenAccept(data -> {
             if (data == null) {
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.error.not_found", "Backpack not found.").color(NamedTextColor.RED);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.not_found", "Backpack not found.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
                 return;
             }
 
             // Check if already locked
             if (data.isLocked()) {
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.password.exists", "This backpack already has a password.").color(NamedTextColor.RED);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.exists", "This backpack already has a password.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
 
-                Component hint = Component.translatable("mcengine.mcbackpack.msg.password.exists.hint", "Use /bp changepwd or /bp deletepwd.").color(NamedTextColor.GRAY);
+                Component hint = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.exists.hint", "Use /bp changepwd or /bp deletepwd.").color(NamedTextColor.GRAY);
                 player.sendMessage(hint);
                 return;
             }
 
             // Proceed to set password if none exists
             provider.setPwd(uuid, rawPassword).thenRun(() -> {
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.password.set", "Backpack password set.").color(NamedTextColor.GREEN);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.set", "Backpack password set.").color(NamedTextColor.GREEN);
                 player.sendMessage(msg);
             });
         });
@@ -102,7 +102,7 @@ public class HandleSetPwd implements IBackpackCommandHandle {
      */
     @Override
     public Component getHelp() {
-        return Component.translatable("mcengine.mcbackpack.msg.help.setpwd", "<password> - Set password for held backpack");
+        return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.setpwd", "<password> - Set password for held backpack");
     }
 
     /**

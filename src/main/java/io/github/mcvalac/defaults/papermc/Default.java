@@ -68,6 +68,21 @@ public class Default implements IMCExtension {
         this.commandManager = new MCBackpackCommandManager(plugin, provider);
 
         // Register listeners
+        registerListener(plugin, provider);
+
+        // Register /bp command
+        registerCommand(plugin);
+
+        logger.info("Extension loaded successfully.");
+    }
+
+    /**
+     * Registers all event listeners for this extension.
+     *
+     * @param plugin   The host JavaPlugin.
+     * @param provider The MCBackpack provider instance.
+     */
+    private void registerListener(JavaPlugin plugin, MCBackpackProvider provider) {
         plugin.getServer().getPluginManager().registerEvents(
             new HandleInventoryOpen(plugin, provider, passwordManager, cooldownManager), plugin);
         plugin.getServer().getPluginManager().registerEvents(
@@ -82,11 +97,6 @@ public class Default implements IMCExtension {
             new LHandleChangeModelData(plugin), plugin);
         plugin.getServer().getPluginManager().registerEvents(
             new LHandleCreateBackpack(plugin, provider), plugin);
-
-        // Register /bp command
-        registerCommand(plugin);
-
-        logger.info("Extension loaded successfully.");
     }
 
     /**

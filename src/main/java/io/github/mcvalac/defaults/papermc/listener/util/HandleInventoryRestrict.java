@@ -52,7 +52,7 @@ public class HandleInventoryRestrict implements Listener {
             for (int slot : event.getRawSlots()) {
                 if (slot < topSize) {
                     event.setCancelled(true);
-                    Component msg = Component.translatable("mcengine.mcbackpack.msg.error.recursive", "You cannot put a backpack inside another backpack.").color(NamedTextColor.RED);
+                    Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.recursive", "You cannot put a backpack inside another backpack.").color(NamedTextColor.RED);
                     event.getWhoClicked().sendMessage(msg);
                     return;
                 }
@@ -93,7 +93,7 @@ public class HandleInventoryRestrict implements Listener {
                (event.getClick() == ClickType.NUMBER_KEY && isBackpack(event.getWhoClicked().getInventory().getItem(event.getHotbarButton())))) {
 
                  event.setCancelled(true);
-                 Component msg = Component.translatable("mcengine.mcbackpack.msg.error.recursive", "You cannot put a backpack inside another backpack.").color(NamedTextColor.RED);
+                 Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.recursive", "You cannot put a backpack inside another backpack.").color(NamedTextColor.RED);
                  event.getWhoClicked().sendMessage(msg);
                  return;
             }
@@ -104,7 +104,7 @@ public class HandleInventoryRestrict implements Listener {
             if (event.getClickedInventory() != event.getView().getTopInventory()) {
                 if (isBackpack(event.getCurrentItem())) {
                     event.setCancelled(true);
-                    Component msg = Component.translatable("mcengine.mcbackpack.msg.error.recursive", "You cannot put a backpack inside another backpack.").color(NamedTextColor.RED);
+                    Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.recursive", "You cannot put a backpack inside another backpack.").color(NamedTextColor.RED);
                     event.getWhoClicked().sendMessage(msg);
                     return;
                 }

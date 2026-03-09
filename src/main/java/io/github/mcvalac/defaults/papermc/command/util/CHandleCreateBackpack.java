@@ -59,7 +59,7 @@ public class CHandleCreateBackpack implements IBackpackCommandHandle {
     @Override
     public void invoke(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.only_players", "Only players can use this command.").color(NamedTextColor.RED);
             sender.sendMessage(msg);
             return;
         }
@@ -79,12 +79,12 @@ public class CHandleCreateBackpack implements IBackpackCommandHandle {
             try {
                 size = Integer.parseInt(args[0]);
                 if (size % 9 != 0 || size < 9 || size > 54) {
-                    Component msg = Component.translatable("mcengine.mcbackpack.msg.error.size.invalid", "Size must be a multiple of 9 between 9 and 54.").color(NamedTextColor.RED);
+                    Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.size.invalid", "Size must be a multiple of 9 between 9 and 54.").color(NamedTextColor.RED);
                     player.sendMessage(msg);
                     return;
                 }
             } catch (NumberFormatException e) {
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.error.number.invalid", "Invalid number format.").color(NamedTextColor.RED);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.number.invalid", "Invalid number format.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
                 return;
             }
@@ -116,7 +116,7 @@ public class CHandleCreateBackpack implements IBackpackCommandHandle {
             } catch (IllegalArgumentException ignored) { }
 
             // 2. Set Name: "Backpack Creation {size}" using Adventure API
-            meta.displayName(Component.translatable("mcengine.mcbackpack.item.creation.name", "Backpack Creation").color(NamedTextColor.AQUA).append(Component.text(" " + size)));
+            meta.displayName(Component.translatable("mcvalac.mcbackpack.extension.default.item.creation.name", "Backpack Creation").color(NamedTextColor.AQUA).append(Component.text(" " + size)));
 
             // 3. Store Data in NBT for Listener
             meta.getPersistentDataContainer().set(sizeKey, PersistentDataType.INTEGER, size);
@@ -135,7 +135,7 @@ public class CHandleCreateBackpack implements IBackpackCommandHandle {
 
         player.getInventory().addItem(backpackItem);
 
-        Component msg = Component.translatable("mcengine.mcbackpack.msg.creation.received", "Backpack creation item received.").color(NamedTextColor.GREEN);
+        Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.creation.received", "Backpack creation item received.").color(NamedTextColor.GREEN);
         player.sendMessage(msg);
     }
 
@@ -145,7 +145,7 @@ public class CHandleCreateBackpack implements IBackpackCommandHandle {
      */
     @Override
     public Component getHelp() {
-        return Component.translatable("mcengine.mcbackpack.msg.help.create", "[size] [texture] - Get a new backpack item");
+        return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.create", "[size] [texture] - Get a new backpack item");
     }
 
     /**

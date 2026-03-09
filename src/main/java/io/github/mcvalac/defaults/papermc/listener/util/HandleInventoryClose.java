@@ -65,7 +65,7 @@ public class HandleInventoryClose implements Listener {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                Component msg = Component.translatable("mcengine.mcbackpack.msg.error.save", "Could not save backpack contents").color(NamedTextColor.RED);
+                Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.save", "Could not save backpack contents").color(NamedTextColor.RED);
                 event.getPlayer().sendMessage(msg);
             }
         }

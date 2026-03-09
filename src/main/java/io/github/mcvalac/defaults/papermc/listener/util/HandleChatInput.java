@@ -77,20 +77,20 @@ public class HandleChatInput implements Listener {
 
         if (input.equalsIgnoreCase("cancel")) {
             passwordManager.removePending(player.getUniqueId());
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.cancelled", "Backpack opening cancelled").color(NamedTextColor.YELLOW);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.cancelled", "Backpack opening cancelled").color(NamedTextColor.YELLOW);
             player.sendMessage(msg);
             return;
         }
 
         if (verifyPassword(input, data.getPwdHash())) {
-            Component msg = Component.translatable("mcengine.mcbackpack.msg.password.correct", "Password correct").color(NamedTextColor.GREEN);
+            Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.correct", "Password correct").color(NamedTextColor.GREEN);
             player.sendMessage(msg);
 
             passwordManager.removePending(player.getUniqueId());
 
             Bukkit.getScheduler().runTask(plugin, () -> {
                 try {
-                    Component title = Component.translatable("mcengine.mcbackpack.gui.title", "Backpack");
+                    Component title = Component.translatable("mcvalac.mcbackpack.extension.default.gui.title", "Backpack");
 
                     Inventory backpackInv;
                     if (data.getContent() == null || data.getContent().isEmpty()) {
@@ -101,14 +101,14 @@ public class HandleChatInput implements Listener {
                     player.openInventory(backpackInv);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Component err = Component.translatable("mcengine.mcbackpack.msg.error.item.open", "Could not open backpack").color(NamedTextColor.RED);
+                    Component err = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.item.open", "Could not open backpack").color(NamedTextColor.RED);
                     player.sendMessage(err);
                 }
             });
 
         } else {
-            Component incorrect = Component.translatable("mcengine.mcbackpack.msg.password.incorrect", "Incorrect password").color(NamedTextColor.RED);
-            Component tryAgain = Component.translatable("mcengine.mcbackpack.msg.try.again", "Please try again").color(NamedTextColor.RED);
+            Component incorrect = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.incorrect", "Incorrect password").color(NamedTextColor.RED);
+            Component tryAgain = Component.translatable("mcvalac.mcbackpack.extension.default.msg.try.again", "Please try again").color(NamedTextColor.RED);
 
             Component builder = incorrect.append(Component.text(" ")).append(tryAgain);
             player.sendMessage(builder);
