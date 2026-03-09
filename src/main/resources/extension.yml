@@ -1,0 +1,9 @@
+name: "Default"
+main: "${project_group}.defaults.papermc.Default"
+version: "${project_version}"
+extension:
+  depend: []
+git:
+  provider: github
+  owner: ${git_org_name}
+  repository: ${git_org_repository}
