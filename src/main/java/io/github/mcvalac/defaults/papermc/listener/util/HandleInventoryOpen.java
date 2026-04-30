@@ -93,7 +93,7 @@ public class HandleInventoryOpen implements Listener {
                     return;
                 }
 
-                boolean hasPassword = (data.getPwdHash() != null && !data.getPwdHash().isEmpty()) || data.isLocked();
+                boolean hasPassword = (data.getPwdHash() != null && !data.getPwdHash().isEmpty());
 
                 if (hasPassword && !player.isOp()) {
                     Component locked = Component.translatable("mcvalac.mcbackpack.extension.default.msg.locked", "This backpack is locked").color(NamedTextColor.RED);
