@@ -117,7 +117,7 @@ public class HandleInventoryOpen implements Listener {
                     return;
                 }
 
-                if (data.isLocked() && !player.isOp()) {
+                if (data.getPwdHash() != null && !data.getPwdHash().isEmpty() && !player.isOp()) {
                     Component locked = Component.translatable("mcvalac.mcbackpack.extension.default.msg.locked", "This backpack is locked").color(NamedTextColor.RED);
                     player.sendMessage(locked);
 

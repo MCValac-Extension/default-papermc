@@ -77,8 +77,8 @@ public class HandleSetPwd implements IBackpackCommandHandle {
                 return;
             }
 
-            // Check if already locked
-            if (data.isLocked()) {
+            // CHANGED: Use pwdHash to verify lock status instead of isLocked()
+            if (data.getPwdHash() != null && !data.getPwdHash().isEmpty()) {
                 Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.exists", "This backpack already has a password.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
 

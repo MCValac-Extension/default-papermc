@@ -79,7 +79,8 @@ public class HandleDeletePwd implements IBackpackCommandHandle {
                 return;
             }
 
-            if (!data.isLocked()) {
+            // CHANGED: Use pwdHash to verify lock status instead of isLocked()
+            if (data.getPwdHash() == null || data.getPwdHash().isEmpty()) {
                 Component msg = Component.text("Backpack doesn't have a password yet.").color(NamedTextColor.YELLOW);
                 player.sendMessage(msg);
                 return;
