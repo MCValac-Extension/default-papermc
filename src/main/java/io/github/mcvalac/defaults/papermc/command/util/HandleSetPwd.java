@@ -12,35 +12,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
-/**
- * Command handler for setting a password on an unlocked backpack.
- */
 public class HandleSetPwd implements IBackpackCommandHandle {
 
-    /** Service provider for database operations. */
     private final MCBackpackProvider provider;
-
-    /** NamespacedKey used to retrieve the UUID from the backpack item. */
     private final NamespacedKey uuidKey;
 
-    /**
-     * Constructs the set password handler.
-     *
-     * @param plugin   The main plugin instance.
-     * @param provider The backend provider instance.
-     */
     public HandleSetPwd(Plugin plugin, MCBackpackProvider provider) {
         this.provider = provider;
         this.uuidKey = new NamespacedKey(plugin, "backpack_uuid");
     }
 
-    /**
-     * Executes the set password logic.
-     * Checks if the backpack is already locked before setting a new password.
-     *
-     * @param sender The command sender (must be a Player holding a backpack).
-     * @param args   Command arguments: &lt;password&gt;.
-     */
     @Override
     public void invoke(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
@@ -69,16 +50,17 @@ public class HandleSetPwd implements IBackpackCommandHandle {
         String uuid = meta.getPersistentDataContainer().get(uuidKey, PersistentDataType.STRING);
         String rawPassword = args[0];
 
-        // First, load the backpack data to check if a password exists
-        provider.open(uuid).thenAccept(data -> {
+        // CHANGED: Pass player UUID to provider
+        provider.open(uuid, player.getUniqueId().toString()).thenAccept(data -> {
             if (data == null) {
                 Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.error.not_found", "Backpack not found.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
                 return;
             }
 
-            // Check if already locked
-            if (data.isLocked()) {
+            boolean hasPassword = (data.getPwdHash() != null && !data.getPwdHash().isEmpty()) || data.isLocked();
+
+            if (hasPassword) {
                 Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.exists", "This backpack already has a password.").color(NamedTextColor.RED);
                 player.sendMessage(msg);
 
@@ -87,7 +69,6 @@ public class HandleSetPwd implements IBackpackCommandHandle {
                 return;
             }
 
-            // Proceed to set password if none exists
             provider.setPwd(uuid, rawPassword).thenRun(() -> {
                 Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.set", "Backpack password set.").color(NamedTextColor.GREEN);
                 player.sendMessage(msg);
@@ -95,21 +76,11 @@ public class HandleSetPwd implements IBackpackCommandHandle {
         });
     }
 
-    /**
-     * Retrieves the help string for the set password command.
-     *
-     * @return The usage syntax.
-     */
     @Override
     public Component getHelp() {
         return Component.translatable("mcvalac.mcbackpack.extension.default.msg.help.setpwd", "<password> - Set password for held backpack");
     }
 
-    /**
-     * Retrieves the permission node.
-     *
-     * @return null, indicating no permission is required.
-     */
     @Override
     public String getPermission() { return null; }
 }

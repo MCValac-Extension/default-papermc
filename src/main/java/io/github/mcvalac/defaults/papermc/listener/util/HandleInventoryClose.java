@@ -17,36 +17,17 @@ import java.util.Base64;
 
 /**
  * Listens for inventory close events to save backpack data.
- * <p>
- * Detects when a custom Backpack inventory is closed, serializes the contents,
- * and saves them asynchronously to the database provider.
- * </p>
  */
 public class HandleInventoryClose implements Listener {
 
-    /** Service provider for saving data. */
     private final MCBackpackProvider provider;
-
-    /** Manager for tracking close cooldowns. */
     private final BackpackCooldownManager cooldownManager;
 
-    /**
-     * Constructs the inventory close listener.
-     *
-     * @param provider        The backend provider instance.
-     * @param cooldownManager The cooldown tracker.
-     */
     public HandleInventoryClose(MCBackpackProvider provider, BackpackCooldownManager cooldownManager) {
         this.provider = provider;
         this.cooldownManager = cooldownManager;
     }
 
-    /**
-     * Handles the inventory close event.
-     * Checks if the inventory is a {@link BackpackHolder}, serializes it, and initiates a save.
-     *
-     * @param event The inventory close event.
-     */
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
         Inventory inventory = event.getInventory();
@@ -57,8 +38,8 @@ public class HandleInventoryClose implements Listener {
             try {
                 String base64Content = toBase64(inventory);
 
-                // Save Async
-                provider.save(uuid, base64Content).thenRun(() -> {
+                // CHANGED: Pass player UUID to provider
+                provider.save(uuid, base64Content, event.getPlayer().getUniqueId().toString()).thenRun(() -> {
                     cooldownManager.markClosed(event.getPlayer().getUniqueId());
                 });
 
@@ -70,13 +51,6 @@ public class HandleInventoryClose implements Listener {
         }
     }
 
-    /**
-     * Serializes an Inventory object to a Base64 encoded string.
-     *
-     * @param inventory The inventory to serialize.
-     * @return A Base64 string representation of the inventory contents.
-     * @throws IOException If serialization fails.
-     */
     private String toBase64(Inventory inventory) throws IOException {
         byte[] data = ItemStack.serializeItemsAsBytes(Arrays.asList(inventory.getContents()));
         return Base64.getEncoder().encodeToString(data);

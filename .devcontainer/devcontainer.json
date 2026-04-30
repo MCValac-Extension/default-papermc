@@ -7,7 +7,7 @@
     "features": {
         // Overrides the base image tools to force "latest" versions
         "ghcr.io/devcontainers/features/java:1": {
-            "version": "21",             // Keeps Java at 21 (as requested), but gets latest update
+            "version": "25",             // Keeps Java at 21 (as requested), but gets latest update
             "installGradle": "true",
             "gradleVersion": "latest",   // Forces absolute latest Gradle
             "installMaven": "true",

@@ -13,8 +13,8 @@ repositories {
         name = 'mcvalac-plugin'
         url = uri('https://maven.pkg.github.com/MCValac/plugin-papermc')
         credentials {
-            username = System.getenv('GITHUB_ACTOR') ?: System.getenv('AGENT_NAME') ?: System.getenv('USER_GITHUB_NAME')
-            password = System.getenv('GITHUB_TOKEN') ?: System.getenv('AGENT_TOKEN') ?: System.getenv('USER_GITHUB_TOKEN')
+            username = System.getenv('GITHUB_ACTOR') ?: System.getenv('AGENT_GITHUB_NAME') ?: System.getenv('USER_GITHUB_NAME')
+            password = System.getenv('GITHUB_TOKEN') ?: System.getenv('AGENT_GITHUB_TOKEN') ?: System.getenv('USER_GITHUB_TOKEN')
         }
     }
 
@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "io.github.mcvalac:mcbackpack-papermc:2026.0.4-1"
+    compileOnly "io.github.mcvalac:mcbackpack-papermc:2026.0.5-2"
 
     compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
 }

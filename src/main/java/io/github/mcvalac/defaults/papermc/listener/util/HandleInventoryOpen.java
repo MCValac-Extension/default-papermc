@@ -24,32 +24,14 @@ import java.util.Base64;
 
 /**
  * Listens for player interactions to open backpacks.
- * <p>
- * Handles the logic for detecting backpack items, verifying their UUID, checking password locks,
- * and loading/deserializing the inventory data from the provider.
- * </p>
  */
 public class HandleInventoryOpen implements Listener {
 
-    /** Service provider for loading data. */
     private final MCBackpackProvider provider;
-
-    /** Manager for handling locked backpacks. */
     private final PasswordInputManager passwordManager;
-    /** Manager for handling backpack cooldowns. */
     private final BackpackCooldownManager cooldownManager;
-
-    /** NamespacedKey for the backpack's unique ID. */
     private final NamespacedKey uuidKey;
 
-    /**
-     * Constructs the inventory open listener.
-     *
-     * @param plugin          The main plugin instance.
-     * @param provider        The backend provider instance.
-     * @param passwordManager The manager for password states.
-     * @param cooldownManager The manager for cooldown tracking.
-     */
     public HandleInventoryOpen(Plugin plugin, MCBackpackProvider provider, PasswordInputManager passwordManager, BackpackCooldownManager cooldownManager) {
         this.provider = provider;
         this.passwordManager = passwordManager;
@@ -57,11 +39,6 @@ public class HandleInventoryOpen implements Listener {
         this.uuidKey = new NamespacedKey(plugin, "backpack_uuid");
     }
 
-    /**
-     * Handles right-click interactions with backpack items.
-     *
-     * @param event The player interact event.
-     */
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
@@ -87,7 +64,6 @@ public class HandleInventoryOpen implements Listener {
 
         event.setCancelled(true);
 
-        // Cooldown check to prevent rapid reopen spam
         if (cooldownManager.isOnCooldown(player.getUniqueId())) {
             long remainingMs = cooldownManager.getRemainingMillis(player.getUniqueId());
             long remainingSeconds = Math.max(1, (long) Math.ceil(remainingMs / 1000.0));
@@ -98,7 +74,6 @@ public class HandleInventoryOpen implements Listener {
             return;
         }
 
-        // Check if already waiting to prevent double spam
         if (passwordManager.isPending(player.getUniqueId())) {
             Component msg = Component.translatable("mcvalac.mcbackpack.extension.default.msg.password.enter", "Please enter your backpack password in chat").color(NamedTextColor.YELLOW);
             player.sendMessage(msg);
@@ -108,7 +83,8 @@ public class HandleInventoryOpen implements Listener {
         Component loading = Component.translatable("mcvalac.mcbackpack.extension.default.msg.item.open", "Opening backpack...").color(NamedTextColor.GRAY);
         player.sendMessage(loading);
 
-        provider.open(backpackUuid).thenAccept(data -> {
+        // CHANGED: Pass player UUID to provider
+        provider.open(backpackUuid, player.getUniqueId().toString()).thenAccept(data -> {
             Bukkit.getScheduler().runTask(Bukkit.getPluginManager().getPlugin("MCBackpack"), () -> {
 
                 if (data == null) {
@@ -117,7 +93,9 @@ public class HandleInventoryOpen implements Listener {
                     return;
                 }
 
-                if (data.isLocked() && !player.isOp()) {
+                boolean hasPassword = (data.getPwdHash() != null && !data.getPwdHash().isEmpty()) || data.isLocked();
+
+                if (hasPassword && !player.isOp()) {
                     Component locked = Component.translatable("mcvalac.mcbackpack.extension.default.msg.locked", "This backpack is locked").color(NamedTextColor.RED);
                     player.sendMessage(locked);
 
@@ -149,16 +127,6 @@ public class HandleInventoryOpen implements Listener {
         });
     }
 
-    /**
-     * Deserializes a Base64 string into a Bukkit Inventory.
-     *
-     * @param base64 The Base64 encoded inventory data.
-     * @param size   The size of the inventory.
-     * @param uuid   The UUID of the backpack owner/holder.
-     * @param title  The inventory title.
-     * @return The reconstructed Inventory object.
-     * @throws IOException If IO errors occur.
-     */
     private Inventory fromBase64(String base64, int size, String uuid, Component title) throws IOException {
         Inventory inventory = Bukkit.createInventory(new BackpackHolder(uuid), size, title);
 
@@ -171,9 +139,6 @@ public class HandleInventoryOpen implements Listener {
         return inventory;
     }
 
-    /**
-     * Custom InventoryHolder implementation to identify opened backpack inventories.
-     */
     public static class BackpackHolder implements org.bukkit.inventory.InventoryHolder {
         private final String uuid;
         public BackpackHolder(String uuid) { this.uuid = uuid; }
